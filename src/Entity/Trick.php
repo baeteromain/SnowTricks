@@ -70,6 +70,12 @@ class Trick
      */
     private $liked;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -265,6 +271,18 @@ class Trick
     public function removeLiked(User $liked): self
     {
         $this->liked->removeElement($liked);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
