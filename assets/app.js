@@ -13,3 +13,6 @@ import { Tooltip, Toast, Popover } from 'bootstrap';
 
 // start the Stimulus application
 import './bootstrap';
+
+//boostrap icons
+require('bootstrap-icons/font/bootstrap-icons.css');
