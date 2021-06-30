@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home - Snow Tricks{% endblock %}
+
+{% block body %}
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ asset('uploads/trick/360 1.jpg') }}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="text-black-50">Snowtricks</h5>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('uploads/trick/360 2.jpg') }}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('uploads/trick/360 3.jpg') }}" class="d-block w-100" alt="...">
+            </div>
+            <div class="arrow-down-carousel">
+                <a href="#tricks" id="arrow_down"><i class="bi bi-arrow-down-circle-fill"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <section class="container-fluid pt-3" id="tricks">
+        <div class="row row-cols-5" id="tricks_cards">
+            {% include 'home/_tricks.html.twig' %}
+        </div>
+        <div class="d-flex justify-content-center m-5" id="load_more">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+{#            {% set pages = (total / limit)|round(0, 'ceil') %}#}
+
+            <a href="?page={{ pageNb }}"><span class="ps-2">Load more</span></a>
+        </div>
+        <a href="#tricks" id="arrow_down" class="d-flex flex-row-reverse"><i class="bi bi-arrow-up-circle-fill"></i></a>
+    </section>
+{% endblock %}

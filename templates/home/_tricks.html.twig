@@ -1,0 +1,27 @@
+{% for trick in tricks %}
+    <div class="col pb-3">
+        <a href="#" class="text-decoration-none">
+            <div class="card">
+                <img
+                        src="{{ asset('/uploads/trick/' ~ trick.images[0].name  ) }}"
+                        class="card-img-top img-card"
+                        alt=""
+                />
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ trick.title }}
+                        {# {% if is_granted("ROLE_USER") %} #}
+                        <div class="float-end">
+                            <a href="#"><i class="bi bi-pencil-fill"></i></a>
+                            <a href="#"><i class="bi bi-trash-fill"></i></a>
+                        </div>
+                        {# {% endif %} #}
+                    </h5>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+
+
+
