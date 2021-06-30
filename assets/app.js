@@ -16,3 +16,7 @@ import './bootstrap';
 
 //boostrap icons
 require('bootstrap-icons/font/bootstrap-icons.css');
+
+import LoadMoreTrick from './modules/LoadMoreTrick';
+
+new LoadMoreTrick(document.querySelector('#tricks'));

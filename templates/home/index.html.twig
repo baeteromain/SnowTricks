@@ -23,38 +23,17 @@
         </div>
     </div>
 
-    <section class="container-fluid pt-3">
-        <div class="row row-cols-5" id="tricks">
-            {% for trick in tricks %}
-                <div class="col pb-3">
-                    <a href="#" class="text-decoration-none">
-                        <div class="card">
-                            <img
-                                    src="{{ asset('/uploads/trick/' ~ trick.images[0].name  ) }}"
-                                    class="card-img-top img-card"
-                                    alt=""
-                            />
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    {{ trick.title }}
-{#                                    {% if is_granted("ROLE_USER") %}#}
-                                    <div class="float-end">
-                                        <a href="#"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="#"><i class="bi bi-trash-fill"></i></a>
-                                    </div>
-{#                                    {% endif %}#}
-                                </h5>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
+    <section class="container-fluid pt-3" id="tricks">
+        <div class="row row-cols-5" id="tricks_cards">
+            {% include 'home/_tricks.html.twig' %}
         </div>
-        <div class="d-flex justify-content-center m-5">
+        <div class="d-flex justify-content-center m-5" id="load_more">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-                <span class="ps-2">Load more</span>
+{#            {% set pages = (total / limit)|round(0, 'ceil') %}#}
+
+            <a href="?page={{ pageNb }}"><span class="ps-2">Load more</span></a>
         </div>
         <a href="#tricks" id="arrow_down" class="d-flex flex-row-reverse"><i class="bi bi-arrow-up-circle-fill"></i></a>
     </section>
