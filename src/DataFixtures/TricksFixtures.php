@@ -56,7 +56,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
 
             for ($image = 1; $image <= 3; $image++) {
                 $imageTrick = new Image();
-                $imageTrick->setName($trickName . ' ' . $faker->numberBetween(1, 3));
+                $imageTrick->setName($trickName . ' ' . $faker->numberBetween(1, 3) . '.jpg');
                 $imageTrick->setUser($this->getReference('user_1'));
                 $trick->addImage($imageTrick);
 
