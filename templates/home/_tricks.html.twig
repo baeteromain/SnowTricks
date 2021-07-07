@@ -1,7 +1,7 @@
 {% for trick in tricks %}
     <div class="col pb-3">
         <a href="#" class="text-decoration-none">
-            <div class="card">
+            <div class="card" id="card_trick">
                 <img
                         src="{{ asset('/uploads/trick/' ~ trick.images[0].name  ) }}"
                         class="card-img-top img-card"
