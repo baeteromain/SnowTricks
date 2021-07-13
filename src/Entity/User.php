@@ -6,11 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="Un compte existre déjà avec cette adresse")
+ * @UniqueEntity(fields={"username"}, message="Un compte existre déjà avec cet username")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -38,14 +41,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, unique=true)
      */
     private $username;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_verified;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -76,6 +74,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user", orphanRemoval=true)
      */
     private $tricks;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
 
     public function __construct()
     {
@@ -181,12 +184,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getIsVerified(): ?bool
     {
-        return $this->is_verified;
+        return $this->isVerified;
     }
 
     public function setIsVerified(bool $is_verified): self
     {
-        $this->is_verified = $is_verified;
+        $this->isVerified = $is_verified;
 
         return $this;
     }
