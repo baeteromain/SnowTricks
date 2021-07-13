@@ -1,87 +1,90 @@
 let collection, boutonAjout, span, collectionVideos, boutonAjoutVideos, span_video
-window.onload = () => {
-    collection = document.querySelector('#image')
-    span = collection.querySelector("span")
-    boutonAjout = document.createElement("button")
-    boutonAjout.className = "ajout-image btn btn-secondary"
-    boutonAjout.innerText = "Ajouter une image"
+if(window.location.pathname === "/trick/add"){
 
-    let nouveauBouton = span.append(boutonAjout)
+    window.onload = () => {
+        collection = document.querySelector('#image')
+        span = collection.querySelector("span")
+        boutonAjout = document.createElement("button")
+        boutonAjout.className = "ajout-image btn btn-secondary"
+        boutonAjout.innerText = "Ajouter une image"
 
-    collection.dataset.index = collection.querySelectorAll('input').length
+        let nouveauBouton = span.append(boutonAjout)
 
-    boutonAjout.addEventListener('click', function (){
-        addButton(collection, nouveauBouton)
-    })
+        collection.dataset.index = collection.querySelectorAll('input').length
 
-    collectionVideos = document.querySelector('#video')
-    span_video = collectionVideos.querySelector('#video_span')
-    boutonAjoutVideos = document.createElement("button")
-    boutonAjoutVideos.className = "ajout-video btn btn-secondary"
-    boutonAjoutVideos.innerText = "Ajouter un lien vidéo"
+        boutonAjout.addEventListener('click', function () {
+            addButton(collection, nouveauBouton)
+        })
 
-    let nouveauBoutonVideo = span_video.append(boutonAjoutVideos)
+        collectionVideos = document.querySelector('#video')
+        span_video = collectionVideos.querySelector('#video_span')
+        boutonAjoutVideos = document.createElement("button")
+        boutonAjoutVideos.className = "ajout-video btn btn-secondary"
+        boutonAjoutVideos.innerText = "Ajouter un lien vidéo"
 
-    collectionVideos.dataset.index = collectionVideos.querySelectorAll('input').length
+        let nouveauBoutonVideo = span_video.append(boutonAjoutVideos)
 
-    boutonAjoutVideos.addEventListener('click', function (){
-        addButtonVideo(collectionVideos, nouveauBoutonVideo)
-    })
-}
+        collectionVideos.dataset.index = collectionVideos.querySelectorAll('input').length
 
-function addButton(collection, nouveauBouton){
-    let prototype = collection.dataset.prototype
-    let index = collection.dataset.index
-    prototype = prototype.replace(/__name__/g, index)
+        boutonAjoutVideos.addEventListener('click', function () {
+            addButtonVideo(collectionVideos, nouveauBoutonVideo)
+        })
+    }
 
-    let content = document.createElement('html')
-    content.innerHTML = prototype
-    let newForm = content.querySelector('div')
+    function addButton(collection, nouveauBouton) {
+        let prototype = collection.dataset.prototype
+        let index = collection.dataset.index
+        prototype = prototype.replace(/__name__/g, index)
 
-    let boutonSuppr = document.createElement('button')
-    boutonSuppr.type = "button"
-    boutonSuppr.className = "btn btn-danger"
-    boutonSuppr.id = 'delete-image-' + index
-    boutonSuppr.innerHTML = "Supprimer une image"
+        let content = document.createElement('html')
+        content.innerHTML = prototype
+        let newForm = content.querySelector('div')
 
-    newForm.append(boutonSuppr)
+        let boutonSuppr = document.createElement('button')
+        boutonSuppr.type = "button"
+        boutonSuppr.className = "btn btn-danger"
+        boutonSuppr.id = 'delete-image-' + index
+        boutonSuppr.innerHTML = "Supprimer une image"
 
-    collection.dataset.index++
+        newForm.append(boutonSuppr)
 
-    let boutonAjout = collection.querySelector(".ajout-image")
+        collection.dataset.index++
 
-    span.insertBefore(newForm, boutonAjout)
+        let boutonAjout = collection.querySelector(".ajout-image")
 
-    boutonSuppr.addEventListener('click', function (){
-        this.previousElementSibling.parentElement.remove()
-    })
-}
+        span.insertBefore(newForm, boutonAjout)
 
-function addButtonVideo(collection, nouveauBouton){
-    let prototype = collection.dataset.prototype
-    let index = collection.dataset.index
-    prototype = prototype.replace(/__name__/g, index)
+        boutonSuppr.addEventListener('click', function () {
+            this.previousElementSibling.parentElement.remove()
+        })
+    }
 
-    let content = document.createElement('html')
-    content.innerHTML = prototype
-    let newForm = content.querySelector('div')
+    function addButtonVideo(collection, nouveauBouton) {
+        let prototype = collection.dataset.prototype
+        let index = collection.dataset.index
+        prototype = prototype.replace(/__name__/g, index)
 
-    let boutonSuppr = document.createElement('button')
-    boutonSuppr.type = "button"
-    boutonSuppr.className = "btn btn-danger"
-    boutonSuppr.id = 'delete-video-' + index
-    boutonSuppr.innerHTML = "Supprimer un lien vidéo"
+        let content = document.createElement('html')
+        content.innerHTML = prototype
+        let newForm = content.querySelector('div')
 
-    newForm.append(boutonSuppr)
+        let boutonSuppr = document.createElement('button')
+        boutonSuppr.type = "button"
+        boutonSuppr.className = "btn btn-danger"
+        boutonSuppr.id = 'delete-video-' + index
+        boutonSuppr.innerHTML = "Supprimer un lien vidéo"
 
-    collection.dataset.index++
+        newForm.append(boutonSuppr)
 
-    let boutonAjout = collection.querySelector(".ajout-video")
+        collection.dataset.index++
 
-    span_video.insertBefore(newForm, boutonAjout)
+        let boutonAjout = collection.querySelector(".ajout-video")
 
-    boutonSuppr.addEventListener('click', function (){
-        this.previousElementSibling.parentElement.remove()
-    })
+        span_video.insertBefore(newForm, boutonAjout)
+
+        boutonSuppr.addEventListener('click', function () {
+            this.previousElementSibling.parentElement.remove()
+        })
+    }
 }
 
