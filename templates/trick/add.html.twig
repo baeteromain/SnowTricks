@@ -12,10 +12,13 @@
         {{ form_row(form.title) }}
         {{ form_row(form.category) }}
         {{ form_row(form.description) }}
-        {{ form_row(form.images) }}
+        <div id="image" data-prototype="{{ form_row(form.images.vars.prototype)|e('html_attr') }}">
+            {{ form_row(form.images) }}
+            <span></span>
+        </div>
         <div id="video" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
             {{ form_row(form.videos) }}
-            <span></span>
+            <span id="video_span"></span>
         </div>
         {{ form_row(form.Valider) }}
         {{ form_end(form) }}
