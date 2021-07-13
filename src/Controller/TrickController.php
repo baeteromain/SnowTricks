@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Service\Slug;
 use App\Service\UploadImage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/add", name="trick_add")
      */
-    public function add(Request $request, UploadImage $uploadImage, EntityManagerInterface $manager): Response
+    public function add(Request $request, UploadImage $uploadImage, EntityManagerInterface $manager, Slug $slug): Response
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -35,7 +36,8 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setUser($this->getUser());
             $trick->setCreatedAt(new \DateTime());
-            $trick->setSlug('test');
+            $sluggy = $slug->slugify($trick->getTitle());
+            $trick->setSlug($sluggy);
 
             foreach ($trick->getImages() as $image) {
                 $image = $uploadImage->saveImage($image);
