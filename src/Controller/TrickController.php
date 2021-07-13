@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
 use App\Entity\Trick;
-use App\Entity\User;
 use App\Form\TrickType;
+use App\Service\UploadImage;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,36 +26,31 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/add", name="trick_add")
      */
-    public function add(Request $request): Response
+    public function add(Request $request, UploadImage $uploadImage, EntityManagerInterface $manager): Response
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
 
         $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()){
-                $trick->setUser($this->getUser());
-                $trick->setCreatedAt( new \DateTime());
-                $trick->setSlug('test');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick->setUser($this->getUser());
+            $trick->setCreatedAt(new \DateTime());
+            $trick->setSlug('test');
 
-                $images = $form->get('images')->getData();
-
-                foreach ($images as $image){
-                    $fichier = md5(uniqid()) . '.' . $image->guessExtension();
-
-                    $image->move(
-                        $this->getParameter('trick_image_directory'),
-                        $fichier
-                    );
-                    $img = new Image();
-                    $img->setName($fichier);
-                    $trick->addImage($img);
-                }
-
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($trick);
-                $em->flush();
-              return $this->redirectToRoute('app_home');
+            foreach ($trick->getImages() as $image) {
+                $image = $uploadImage->saveImage($image);
+                $image->setUser($this->getUser());
+                $manager->persist($image);
             }
+            foreach ($trick->getVideos() as $video) {
+                dump($video);
+                $video->setUser($this->getUser());
+                $manager->persist($video);
+            }
+            $manager->persist($trick);
+            $manager->flush();
+            return $this->redirectToRoute('app_home');
+        }
         return $this->render('trick/add.html.twig', [
             'form' => $form->createView(),
         ]);
