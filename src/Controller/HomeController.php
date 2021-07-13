@@ -28,7 +28,7 @@ class HomeController extends AbstractController
             'total' => $total,
             'limit' => $limit,
             'pageNb' => $pageNb,
-            'nbPages' => $nbPages
+            'nbPages' => $nbPages,
         ]);
     }
 
@@ -39,18 +39,17 @@ class HomeController extends AbstractController
     {
         $limit = 5;
         $tricks = $trickRepository->findBy([], ['created_at' => 'desc'], $limit, $nbTricks);
-
-        if(!$request->isXmlHttpRequest()){
+        if (!$request->isXmlHttpRequest()) {
             return $this->redirectToRoute("app_home");
         }
-        if(!$tricks){
+        if (!$tricks) {
             return new JsonResponse([
-                'content' => false
+                'content' => false,
             ]);
         }
-            return new JsonResponse([
-                'content' => $this->renderView('home/_tricks.html.twig', [ "tricks" => $tricks])
-            ]);
+        return new JsonResponse([
+            'content' => $this->renderView('home/_tricks.html.twig', ["tricks" => $tricks]),
+        ]);
 
     }
 }
