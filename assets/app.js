@@ -21,4 +21,6 @@ import LoadMoreTrick from './modules/LoadMoreTrick';
 
 new LoadMoreTrick(document.querySelector('#tricks'));
 
-import './modules/AddVideos'
+
+
+import './modules/TrickAdd';
