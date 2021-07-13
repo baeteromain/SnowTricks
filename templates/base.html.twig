@@ -1,56 +1,67 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Romain BAETE">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Romain BAETE">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-        <link rel="icon" href="{{ asset('image/logo-Snowtricks.png') }}" type="image/png" sizes="16x16">
-    </head>
-    <body class="d-flex flex-column min-vh-100">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ path('app_home') }}">Snowtricks</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <link rel="icon" href="{{ asset('image/logo-Snowtricks.png') }}" type="image/png" sizes="16x16">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ path('app_home') }}">Snowtricks</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Trick</a>
+                    </li>
+                    {% if app.user %}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
+                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}">Sign In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Trick</a>
+                            <a class="nav-link" href="{{ path('app_register') }}">Sign Up</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Sign In</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Sign Un</a>
-                        </li>
-                    </ul>
-                </div>
+                    {% endif %}
+                </ul>
             </div>
-        </nav>
-    </header>
-        {% block body %}{% endblock %}
-
-    <footer class="bg-light text-center text-lg-start mt-auto">
-        <!-- Copyright -->
-        <div class="p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2021 Copyright: BAETE ROMAIN
         </div>
-        <!-- Copyright -->
-    </footer>
-    </body>
+    </nav>
+</header>
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">{{ message }}</div>
+{% endfor %}
+{% block body %}{% endblock %}
+
+<footer class="bg-light text-center text-lg-start mt-auto">
+    <!-- Copyright -->
+    <div class="p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright: BAETE ROMAIN
+    </div>
+    <!-- Copyright -->
+</footer>
+</body>
 </html>
