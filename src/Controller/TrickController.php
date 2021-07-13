@@ -33,7 +33,7 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()){
-//                $trick->setUser('');
+                $trick->setUser($this->getUser());
                 $trick->setCreatedAt( new \DateTime());
                 $trick->setSlug('test');
 
