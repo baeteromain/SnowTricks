@@ -18,7 +18,7 @@ export default class LoadMoreTrick {
             b.addEventListener('click', () => {
                 click++
                 let offset = nbTrick * click
-                this.loadUrl('/ajax/' + offset )
+                this.loadUrl('/ajax/' + offset)
             })
         })
     }
@@ -26,16 +26,16 @@ export default class LoadMoreTrick {
     async loadUrl(url) {
         const response = await fetch(url, {
             headers: {
-                'X-Requested-With' : 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        if(response.status >= 200 && response.status < 300){
+        if (response.status >= 200 && response.status < 300) {
             const data = await response.json()
-            if(data.content === false){
+            if (data.content === false) {
                 document.getElementById('spinner').style.display = "none"
                 document.getElementById('load').style.display = "none"
-            }else{
-            this.trickCard.insertAdjacentHTML('beforeend', data.content)
+            } else {
+                this.trickCard.insertAdjacentHTML('beforeend', data.content)
             }
         } else {
             console.error(response)
