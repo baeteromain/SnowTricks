@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(
  *  fields={"title"},
  *  message="Un trick possède déjà ce nom, merci de le modifier"
@@ -31,13 +32,14 @@ class Trick
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=3, max=255, minMessage="La titre doit faire au moins 3 caractères")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Merci de renseigner un titre svp")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\Length(min=20, minMessage="La description doit faire au moins 20 caractères")
+     * @Assert\NotBlank(message="Merci de renseigner une description svp")
      */
     private $description;
 
@@ -130,11 +132,13 @@ class Trick
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setCreatedAt()
     {
-        $this->created_at = $created_at;
+        $this->created_at = new \DateTime();
 
-        return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface

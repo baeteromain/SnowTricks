@@ -35,11 +35,12 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setUser($this->getUser());
-            $trick->setCreatedAt(new \DateTime());
             $sluggy = $slug->slugify($trick->getTitle());
             $trick->setSlug($sluggy);
+            
 
             foreach ($trick->getImages() as $image) {
+                dump($image);
                 $image = $uploadImage->saveImage($image);
                 $image->setUser($this->getUser());
                 $manager->persist($image);
