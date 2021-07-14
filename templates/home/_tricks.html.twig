@@ -1,6 +1,6 @@
 {% for trick in tricks %}
     <div class="col pb-3">
-        <a href="#" class="text-decoration-none">
+        <a href="{{ path('trick_details', {'slug': trick.slug}) }}" class="text-decoration-none">
             <div class="card" id="card_trick">
                 {% if trick.images is empty %}
                     <img
