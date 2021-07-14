@@ -28,12 +28,10 @@
             {% include 'home/_tricks.html.twig' %}
         </div>
         <div class="d-flex justify-content-center m-5" id="load_more">
-            <div class="spinner-border" role="status">
+            <div class="spinner-border" role="status" id="spinner">
                 <span class="visually-hidden">Loading...</span>
             </div>
-{#            {% set pages = (total / limit)|round(0, 'ceil') %}#}
-
-            <a href="?page={{ pageNb }}"><span class="ps-2">Load more</span></a>
+            <button id="load">Load more</button>
         </div>
         <a href="#tricks" id="arrow_down" class="d-flex flex-row-reverse"><i class="bi bi-arrow-up-circle-fill"></i></a>
     </section>
