@@ -1,12 +1,21 @@
 {% for trick in tricks %}
     <div class="col pb-3">
         <a href="#" class="text-decoration-none">
-            <div class="card">
-                <img
-                        src="{{ asset('/uploads/trick/' ~ trick.images[0].name  ) }}"
-                        class="card-img-top img-card"
-                        alt=""
-                />
+            <div class="card" id="card_trick">
+                {% if trick.images is empty %}
+                    <img
+                            src="{{ asset('/uploads/trick/logo-Snowtricks.png') }}"
+                            class="card-img-top img-card"
+                            alt=""
+                    />
+                {% else %}
+                    <img
+                            src="{{ asset('/uploads/trick/' ~ trick.images[0].name  ) }}"
+                            class="card-img-top img-card"
+                            alt=""
+                    />
+                {% endif %}
+
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ trick.title }}

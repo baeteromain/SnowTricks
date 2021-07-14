@@ -14,38 +14,42 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="app_home")
      */
-    public function index(TrickRepository $trickRepository, Request $request): Response
+    public function index(TrickRepository $trickRepository): Response
     {
-        $limit = 4;
+        $limit = 5;
         $pageNb = 1;
         $nbPages = ($trickRepository->getTotalTricks() / $limit);
-
-//        $tricks = $trickRepository->findBy([], ['created_at' => 'desc'], 15, 0);
 
         $tricks = $trickRepository->getPaginatedTrick($pageNb, $limit);
 
         $total = $trickRepository->getTotalTricks();
-
-        if ($request->isXmlHttpRequest()){
-            $pageNb = (int)$request->query->get('page');
-            $offset =  ($pageNb - 1) * $limit;
-            $tricks = $trickRepository->findBy([], ['created_at' => 'desc'],$limit, $offset);
-            $nbPages = ($trickRepository->getTotalTricks() / $limit) - $pageNb;
-            $pageNb++;
-            return new JsonResponse([
-                'content' => $this->renderView('home/_tricks.html.twig', [ "tricks" => $tricks,
-                    "pageNb" => $pageNb,
-                    "nbPages" => $nbPages])
-            ]);
-
-        }
-
         return $this->render('home/index.html.twig', [
             'tricks' => $tricks,
             'total' => $total,
             'limit' => $limit,
             'pageNb' => $pageNb,
-            'nbPages' => $nbPages
+            'nbPages' => $nbPages,
         ]);
+    }
+
+    /**
+     * @Route("/ajax/{nbTricks}", name="app_home_ajax")
+     */
+    public function _loadMoreTrick(TrickRepository $trickRepository, Request $request, $nbTricks): Response
+    {
+        $limit = 5;
+        $tricks = $trickRepository->findBy([], ['created_at' => 'desc'], $limit, $nbTricks);
+        if (!$request->isXmlHttpRequest()) {
+            return $this->redirectToRoute("app_home");
+        }
+        if (!$tricks) {
+            return new JsonResponse([
+                'content' => false,
+            ]);
+        }
+        return new JsonResponse([
+            'content' => $this->renderView('home/_tricks.html.twig', ["tricks" => $tricks]),
+        ]);
+
     }
 }

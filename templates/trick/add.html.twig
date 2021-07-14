@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% block title %}
+    Ajouter un nouveau trick
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Créer un nouveau trick</h1>
+
+        {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.description) }}
+        <div class="row">
+            <div class="col-lg col-xl" id="image" data-prototype="{{ form_row(form.images.vars.prototype)|e('html_attr') }}">
+                {{ form_row(form.images) }}
+                <span class="text-center"></span>
+            </div>
+            <div class="col-lg col-xl" id="video" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
+                {{ form_row(form.videos) }}
+                <span id="video_span" class="text-center py-2"></span>
+            </div>
+        </div>
+        <div class="mt-5 text-center">
+            {{ form_row(form.Valider) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
