@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"email"}, message="Un compte existre déjà avec cette adresse")
  * @UniqueEntity(fields={"username"}, message="Un compte existre déjà avec cet username")
  */
@@ -113,7 +114,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -128,11 +129,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setRoles(array $roles)
     {
-        $this->roles = $roles;
-
-        return $this;
+        $this->roles = ['ROLE_USER'];
     }
 
     /**
@@ -357,7 +359,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Generates the magic method
      *
      */
-    public function __toString(){
+    public function __toString()
+    {
         // to show the name of the Category in the select
         return $this->username;
         // to show the id of the Category in the select
