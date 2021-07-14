@@ -12,15 +12,19 @@
         {{ form_row(form.title) }}
         {{ form_row(form.category) }}
         {{ form_row(form.description) }}
-        <div id="image" data-prototype="{{ form_row(form.images.vars.prototype)|e('html_attr') }}">
-            {{ form_row(form.images) }}
-            <span></span>
+        <div class="row">
+            <div class="col-lg col-xl" id="image" data-prototype="{{ form_row(form.images.vars.prototype)|e('html_attr') }}">
+                {{ form_row(form.images) }}
+                <span class="text-center"></span>
+            </div>
+            <div class="col-lg col-xl" id="video" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
+                {{ form_row(form.videos) }}
+                <span id="video_span" class="text-center py-2"></span>
+            </div>
         </div>
-        <div id="video" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
-            {{ form_row(form.videos) }}
-            <span id="video_span"></span>
+        <div class="mt-5 text-center">
+            {{ form_row(form.Valider) }}
         </div>
-        {{ form_row(form.Valider) }}
         {{ form_end(form) }}
     </div>
 {% endblock %}

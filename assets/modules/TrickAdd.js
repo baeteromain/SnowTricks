@@ -42,7 +42,7 @@ if(window.location.pathname === "/trick/add"){
 
         let boutonSuppr = document.createElement('button')
         boutonSuppr.type = "button"
-        boutonSuppr.className = "btn btn-danger"
+        boutonSuppr.className = "btn btn-danger mb-3"
         boutonSuppr.id = 'delete-image-' + index
         boutonSuppr.innerHTML = "Supprimer une image"
 
@@ -70,7 +70,7 @@ if(window.location.pathname === "/trick/add"){
 
         let boutonSuppr = document.createElement('button')
         boutonSuppr.type = "button"
-        boutonSuppr.className = "btn btn-danger"
+        boutonSuppr.className = "btn btn-danger mb-3"
         boutonSuppr.id = 'delete-video-' + index
         boutonSuppr.innerHTML = "Supprimer un lien vidéo"
 
