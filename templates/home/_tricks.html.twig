@@ -2,6 +2,7 @@
     <div class="col pb-3">
         <a href="{{ path('trick_details', {'slug': trick.slug}) }}" class="text-decoration-none">
             <div class="card" id="card_trick">
+                {% set number_images = trick.images|length %}
                 {% if trick.images is empty %}
                     <img
                             src="{{ asset('/uploads/trick/logo-Snowtricks.png') }}"
@@ -10,7 +11,7 @@
                     />
                 {% else %}
                     <img
-                            src="{{ asset('/uploads/trick/' ~ trick.images[0].name  ) }}"
+                            src="{{ asset('/uploads/trick/' ~ trick.images[random(0,number_images-1)].name  ) }}"
                             class="card-img-top img-card"
                             alt=""
                     />
