@@ -22,3 +22,16 @@
   height: 200px;
   object-fit: cover;
 }
+
+.main_image_trick{
+  height: 600px;
+}
+
+.img_main{
+  object-fit: fill;
+}
+/* Solid border */
+hr.solid {
+  border-top: 3px solid black;
+}
+
