@@ -36,7 +36,7 @@ class UsersFixtures extends Fixture
             $user->setIsVerified($faker->numberBetween(0,1));
             }
             $user->setUsername($faker->userName);
-            $user->setAvatar('Multiavatar-' . $faker->numberBetween(1,4));
+            $user->setAvatar('Multiavatar-' . $faker->numberBetween(1,4) . '.png');
 
 
             $manager->persist($user);
