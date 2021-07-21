@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Snowtricks - {{ trick.title }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid p-0">
+        <div class="mb-4 main_image_trick">
+            {% set number_images = trick.images|length %}
+            {% if trick.images is empty %}
+                <img
+                        src="{{ asset('/uploads/trick/logo-Snowtricks.png') }}"
+                        class="w-100 h-50"
+                        alt=""
+                />
+            {% else %}
+                <img
+                        src="{{ asset('/uploads/trick/' ~ trick.images[random(0,number_images-1)].name  ) }}"
+                        class="img-fluid w-100 h-100 img_main"
+                        alt=""
+                />
+            {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <section>
+            <div class="row">
+                {% for image in trick.images %}
+                    <div class="col-2 pb-3">
+                        <div class="card">
+                            <img
+                                    class="card-img-top img-card"
+                                    src="{{ asset('uploads/trick/' ~ image.name) }}" alt="">
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for video in trick.videos %}
+                    <div class="col-2">
+                        <div class="card">
+                            <div id="ytplayer"></div>
+                        </div>
+                    </div>
+
+                    <script>
+                        // Load the IFrame Player API code asynchronously.
+                        var tag = document.createElement('script');
+                        tag.src = "https://www.youtube.com/player_api";
+                        var firstScriptTag = document.getElementsByTagName('script')[0];
+                        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                        // Replace the 'ytplayer' element with an <iframe> and
+                        // YouTube player after the API code downloads.
+                        var player;
+
+                        function onYouTubePlayerAPIReady() {
+                            let url = "{{ video.embed }}"
+                            let id = url.split("?v=")[1]
+                            player = new YT.Player('ytplayer', {
+                                height: '200',
+                                width: '100%',
+                                videoId: id
+                            });
+                        }
+                    </script>
+                {% endfor %}
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-11 mx-5 px-5 my-5">
+                    {{ trick.description | raw}}
+                </div>
+            </div>
+
+            <div class="row mx-auto text-center pb-3">
+                <div class="col">
+                    <span class="border border-dark border-4 rounded-pill p-2 bg-info">
+                        Catégorie : {{ trick.category.name }}
+                    </span>
+                </div>
+                <div class="col">
+                    <span class="border border-dark border-4 rounded-pill p-2 bg-info">Publié
+                        le {{ trick.createdAt | date('d/m/y') }} à {{ trick.createdAt | date('H:i') }}
+                        par {{ trick.user.username }}</span>
+                </div>
+                   {% if trick.updatedAt %}
+                <div class="col">
+                       <span class="border border-dark border-4 rounded-pill p-2 bg-info">Mis à jour
+                           le {{ trick.updatedAt | date('d/m/y') }} à {{ trick.updatedAt | date('H:i') }}</span>
+                </div>
+                   {% endif %}
+            </div>
+        </section>
+        <hr class="solid">
+    </div>
+{% endblock %}
+
+
