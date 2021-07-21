@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\CommentType;
 use App\Form\TrickType;
+use App\Repository\CommentRepository;
+use App\Repository\TrickRepository;
 use App\Service\Slug;
 use App\Service\UploadImage;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,7 +41,7 @@ class TrickController extends AbstractController
             $trick->setUser($this->getUser());
             $sluggy = $slug->slugify($trick->getTitle());
             $trick->setSlug($sluggy);
-            
+
 
             foreach ($trick->getImages() as $image) {
                 dump($image);
@@ -55,6 +59,44 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
         return $this->render('trick/add.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/trick/details/{slug}", name="trick_details")
+     */
+    public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $manager, $slug): Response
+    {
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+
+        $limit = 5;
+        $pageNb = 1;
+
+        $comments = $commentRepository->getPaginatedComment($pageNb, $limit, $trick->getId());
+
+
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $comment->setUser($this->getUser());
+            $comment->setTrick($trick);
+
+            $manager->persist($comment);
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre commentaire à bien été ajouté');
+
+            return $this->redirectToRoute('trick_details', ['slug' => $trick->getSlug()]);
+        }
+
+        return $this->render('trick/trick_details.html.twig', [
+            'trick' => $trick,
+            'comments' => $comments,
             'form' => $form->createView(),
         ]);
     }
