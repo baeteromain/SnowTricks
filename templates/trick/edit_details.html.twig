@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Update
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Update : {{ trick.title }}</h1>
+
+        {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.description) }}
+        <div class="row">
+            <div class="col-lg-6 ">
+
+                {{ form_row(form.images) }}
+                {% if app.request.attributes.get('_route') == 'trick_edit' %}
+                    <div class="row">
+
+                        {% for image in trick.images %}
+
+                            <div class="col-sm-12 col-md-6 text-center">
+                                <img src="{{ asset('/uploads/trick/' ~ image.name) }}" alt="Image"
+                                     class="img-card-update pb-2">
+                                <a class="link-danger" href="{{ path('trick_delete_image', {id: image.id}) }}"
+                                   data-delete
+                                   data-token="{{ csrf_token('delete' ~ image.id) }}"><i class="bi bi-trash-fill"
+                                                                                         style="font-size: 2rem"></i></a>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-6" id="video"
+                 data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
+
+
+                {{ form_row(form.videos) }}
+
+                <span id="video_span" class="text-center py-2"></span>
+            </div>
+        </div>
+        <div class="mt-5 text-center">
+            <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Delete
+            </button>
+        </div>
+        {{ form_end(form) }}
+        <div class="mt-5 text-center">
+        </div>
+        <div class="row">
+            {% for video in trick.videos %}
+                {% set id_youtube = video.embed|split('?v=') %}
+                {% set embed = id_youtube[1]|split('&') %}
+                <div class="col-2">
+                    <div class="card" style="display: none">
+                        <iframe width="100%" height="200"
+                                src="https://www.youtube.com/embed/{{ embed[0] }}">
+                        </iframe>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {{ include('home/_modal.html.twig') }}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('trick_add') }}
+{% endblock %}
+
+
