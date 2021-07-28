@@ -24,7 +24,7 @@
     </div>
 
     <section class="container-fluid pt-3" id="tricks">
-        <div class="row row-cols-5" id="tricks_cards">
+        <div class="row" id="tricks_cards">
             {% include 'home/_tricks.html.twig' %}
         </div>
         <div class="d-flex justify-content-center m-5" id="load_more">
@@ -36,3 +36,8 @@
         <a href="#tricks" id="arrow_down" class="d-flex flex-row-reverse"><i class="bi bi-arrow-up-circle-fill"></i></a>
     </section>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('load') }}
+{% endblock %}
+

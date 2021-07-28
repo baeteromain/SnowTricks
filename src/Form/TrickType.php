@@ -20,35 +20,31 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'required' => false
+                'required' => false,
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
             ])
             ->add('description', TextareaType::class, [
-                'required'=> false
+                'required' => false,
             ])
-
-            ->add('images', CollectionType::class,[
-                'entry_type' => ImageType::class,
+            ->add('images', FileType::class, [
                 'label' => 'Images',
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
             ])
-            ->add('videos', CollectionType::class,[
+            ->add('videos', CollectionType::class, [
                 'entry_type' => VideoType::class,
                 'label' => 'Lien Vidéo',
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-            ])
-            ->add('Valider', SubmitType::class);
+                'prototype' => true,
+            ]);
 
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
