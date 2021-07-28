@@ -19,18 +19,14 @@ class UploadImage
      * @param Image $image
      * @return Image $image
      */
-    public function saveImage(Image $image): Image
+    public function saveImage($image)
     {
-        // Récupère le fichier de l'image uploadée
-        $file = $image->getFile();
         // Créer un nom unique pour le fichier
-        $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+        $fichier = md5(uniqid()) . '.' . $image->guessExtension();
         // Déplace le fichier
-        $file->move($this->params->get('trick_image_directory'), $fichier);
-        // Donner le nom au fichier dans la base de données
-        $image->setName($fichier);
+        $image->move($this->params->get('trick_image_directory'), $fichier);
 
-        return $image;
+        return $fichier;
     }
 
 }

@@ -1,90 +1,106 @@
-let collection, boutonAjout, span, collectionVideos, boutonAjoutVideos, span_video
-if(window.location.pathname === "/trick/add"){
+let collection, collectionVideos, boutonAjoutVideos, span_video, trickvideo
 
-    window.onload = () => {
-        collection = document.querySelector('#image')
-        span = collection.querySelector("span")
-        boutonAjout = document.createElement("button")
-        boutonAjout.className = "ajout-image btn btn-secondary"
-        boutonAjout.innerText = "Ajouter une image"
 
-        let nouveauBouton = span.append(boutonAjout)
+window.onload = () => {
+    // Gestion de l'ajout / modification / suppression des liens vidéos
+    collectionVideos = document.querySelector('#video')
+    span_video = collectionVideos.querySelector('#video_span')
+    boutonAjoutVideos = document.createElement("button")
+    boutonAjoutVideos.className = "ajout-video btn btn-secondary"
+    boutonAjoutVideos.innerText = "Ajouter un lien vidéo"
 
-        collection.dataset.index = collection.querySelectorAll('input').length
+    trickvideo = document.querySelector('#trick_videos')
 
-        boutonAjout.addEventListener('click', function () {
-            addButton(collection, nouveauBouton)
+    trickvideo.querySelectorAll("div.mb-3").forEach((vid) => {
+        let boutonSupprOldVideo = document.createElement('button')
+        boutonSupprOldVideo.type = "button"
+        boutonSupprOldVideo.className = "btn btn-danger mt-1"
+
+        boutonSupprOldVideo.innerHTML = "Supprimer ce lien vidéo"
+        let iframe = document.querySelectorAll('iframe').forEach((ifra) => {
+
+            let embed = vid.firstChild.value.replace('watch?v=', 'embed/')
+            if (ifra.src === embed) {
+                vid.appendChild(ifra)
+            }
         })
 
-        collectionVideos = document.querySelector('#video')
-        span_video = collectionVideos.querySelector('#video_span')
-        boutonAjoutVideos = document.createElement("button")
-        boutonAjoutVideos.className = "ajout-video btn btn-secondary"
-        boutonAjoutVideos.innerText = "Ajouter un lien vidéo"
-
-        let nouveauBoutonVideo = span_video.append(boutonAjoutVideos)
-
-        collectionVideos.dataset.index = collectionVideos.querySelectorAll('input').length
-
-        boutonAjoutVideos.addEventListener('click', function () {
-            addButtonVideo(collectionVideos, nouveauBoutonVideo)
-        })
-    }
-
-    function addButton(collection, nouveauBouton) {
-        let prototype = collection.dataset.prototype
-        let index = collection.dataset.index
-        prototype = prototype.replace(/__name__/g, index)
-
-        let content = document.createElement('html')
-        content.innerHTML = prototype
-        let newForm = content.querySelector('div')
-
-        let boutonSuppr = document.createElement('button')
-        boutonSuppr.type = "button"
-        boutonSuppr.className = "btn btn-danger mb-3"
-        boutonSuppr.id = 'delete-image-' + index
-        boutonSuppr.innerHTML = "Supprimer une image"
-
-        newForm.append(boutonSuppr)
-
-        collection.dataset.index++
-
-        let boutonAjout = collection.querySelector(".ajout-image")
-
-        span.insertBefore(newForm, boutonAjout)
-
-        boutonSuppr.addEventListener('click', function () {
+        vid.appendChild(boutonSupprOldVideo)
+        boutonSupprOldVideo.addEventListener('click', function () {
             this.previousElementSibling.parentElement.remove()
         })
-    }
+    })
 
-    function addButtonVideo(collection, nouveauBouton) {
-        let prototype = collection.dataset.prototype
-        let index = collection.dataset.index
-        prototype = prototype.replace(/__name__/g, index)
 
-        let content = document.createElement('html')
-        content.innerHTML = prototype
-        let newForm = content.querySelector('div')
+    let nouveauBoutonVideo = span_video.append(boutonAjoutVideos)
 
-        let boutonSuppr = document.createElement('button')
-        boutonSuppr.type = "button"
-        boutonSuppr.className = "btn btn-danger mb-3"
-        boutonSuppr.id = 'delete-video-' + index
-        boutonSuppr.innerHTML = "Supprimer un lien vidéo"
 
-        newForm.append(boutonSuppr)
+    collectionVideos.dataset.index = collectionVideos.querySelectorAll('input').length
 
-        collection.dataset.index++
+    boutonAjoutVideos.addEventListener('click', function () {
+        addButtonVideo(collectionVideos, nouveauBoutonVideo)
+    })
 
-        let boutonAjout = collection.querySelector(".ajout-video")
+    let links = document.querySelectorAll("[data-delete]")
 
-        span_video.insertBefore(newForm, boutonAjout)
+    // Gestion de l'ajout / suppression des liens images
+    // On boucle sur links
+    for (link of links) {
+        // On écoute le clic
+        link.addEventListener("click", function (e) {
+            // On empêche la navigation
+            e.preventDefault()
 
-        boutonSuppr.addEventListener('click', function () {
-            this.previousElementSibling.parentElement.remove()
+            // On demande confirmation
+            if (confirm("Voulez-vous supprimer cette image ?")) {
+                // On envoie une requête Ajax vers le href du lien avec la méthode DELETE
+                fetch(this.getAttribute("href"), {
+                    method: "DELETE",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({"_token": this.dataset.token})
+                }).then(
+                    // On récupère la réponse en JSON
+                    response => response.json()
+                ).then(data => {
+                    if (data.success)
+                        this.parentElement.remove()
+                    else
+                        alert(data.error)
+                }).catch(e => alert(e))
+            }
         })
     }
 }
+
+function addButtonVideo(collection, nouveauBouton) {
+    let prototype = collection.dataset.prototype
+    let index = collection.dataset.index
+    prototype = prototype.replace(/__name__/g, index)
+
+    let content = document.createElement('html')
+    content.innerHTML = prototype
+    let newForm = content.querySelector('div')
+
+    let boutonSuppr = document.createElement('button')
+    boutonSuppr.type = "button"
+    boutonSuppr.className = "btn btn-danger mb-3"
+    boutonSuppr.id = 'delete-video-' + index
+    boutonSuppr.innerHTML = "Supprimer un lien vidéo"
+
+    newForm.append(boutonSuppr)
+
+    collection.dataset.index++
+
+    let boutonAjout = collection.querySelector(".ajout-video")
+
+    span_video.insertBefore(newForm, boutonAjout)
+
+    boutonSuppr.addEventListener('click', function () {
+        this.previousElementSibling.parentElement.remove()
+    })
+}
+
 

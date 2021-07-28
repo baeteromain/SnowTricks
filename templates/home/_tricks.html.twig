@@ -1,7 +1,7 @@
 {% for trick in tricks %}
-    <div class="col pb-3">
+    <div class="col-xl-3 col-md-4">
         <a href="{{ path('trick_details', {'slug': trick.slug}) }}" class="text-decoration-none">
-            <div class="card" id="card_trick">
+            <div class="card h-100" id="card_trick">
                 {% set number_images = trick.images|length %}
                 {% if trick.images is empty %}
                     <img
@@ -20,17 +20,20 @@
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ trick.title }}
-                        {# {% if is_granted("ROLE_USER") %} #}
+                         {% if is_granted("ROLE_USER") %}
                         <div class="float-end">
-                            <a href="#"><i class="bi bi-pencil-fill"></i></a>
-                            <a href="#"><i class="bi bi-trash-fill"></i></a>
+                            <a href="{{ path('trick_edit',{'id' : trick.id}) }}"><i class="bi bi-pencil-fill"></i></a>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
                         </div>
-                        {# {% endif %} #}
+                         {% endif %}
                     </h5>
                 </div>
             </div>
         </a>
     </div>
+    {{ include('home/_modal.html.twig') }}
 {% endfor %}
 
 
