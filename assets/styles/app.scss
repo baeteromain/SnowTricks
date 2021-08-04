@@ -1,50 +1,72 @@
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
 
-.carousel-item > img{
-  height: 90vh;
+.carousel-item > img {
+  height: 95vh;
   object-fit: cover;
 }
 
-#arrow_down{
+#arrow_down , #arrow_up {
   font-size: 3em;
   color: black;
 }
 
-.arrow-down-carousel{
+.arrow-down-carousel {
   position: absolute;
+  margin-right: 25px;
   bottom: 5%;
   left: 95%;
 }
 
-.img-card{
+.img-card {
   max-width: 100%;
   height: 200px;
   object-fit: cover;
 }
 
-.main_image_trick{
+.main_image_trick {
   height: 600px;
 }
 
-.img_main{
+.img_main {
   object-fit: fill;
 }
+
 /* Solid border */
 hr.solid {
   border-top: 3px solid black;
 }
 
-.avatar{
+.avatar {
   height: 50px;
   width: 50px;
 }
-.comment_content{
+
+.comment_content {
   word-break: break-word;
 }
 
-.img-card-update{
+.img-card-update {
   width: 200px;
   height: 200px;
   object-fit: fill;
 }
+
+@media screen and (max-width: 576px) {
+  .navbar-sm {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+  #arrow_up {
+    padding-bottom: 75px;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .navbar-mobile {
+    display: none;
+  }
+}
+
