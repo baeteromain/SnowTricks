@@ -130,11 +130,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @ORM\PrePersist()
+     * @param array $roles
+     * @return $this
      */
-    public function setRoles(array $roles)
+    public function setRoles(array $roles): self
     {
-        $this->roles = ['ROLE_USER'];
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**
