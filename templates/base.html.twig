@@ -18,7 +18,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ path('app_home') }}">Snowtricks</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -55,6 +55,19 @@
     <div class="alert alert-success" role="alert">{{ message }}</div>
 {% endfor %}
 {% block body %}{% endblock %}
+
+<nav class="navbar fixed-bottom navbar-dark bg-dark navbar-mobile">
+    <div class="container-fluid">
+        <a class="nav-link" href="{{ path('app_home') }}"><i class="bi bi-house" style="font-size: 2rem; color: white;"></i></a>
+        <a class="nav-link" href="{{ path('trick_add') }}"><i class="bi bi-bookmark" style="font-size: 2rem; color: white;"></i></a>
+        {% if app.user %}
+        <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-door-open" style="font-size: 2rem; color: white;"></i></a>
+        {% else %}
+            <a class="nav-link" href="{{ path('app_login') }}"><i class="bi bi-person" style="font-size: 2rem; color: white;"></i></a>
+            <a class="nav-link" href="{{ path('app_register') }}"><i class="bi bi-person-plus" style="font-size: 2rem; color: white;"></i></a>
+        {% endif %}
+    </div>
+</nav>
 
 <footer class="bg-light text-center text-lg-start mt-auto">
     <!-- Copyright -->
