@@ -1,0 +1,22 @@
+{% for comment in comments %}
+    <div class="card-body p-4">
+        <div class="d-flex flex-start">
+            <img class="avatar m-2"
+                 src="{{ asset('uploads/avatar/' ~ comment.user.avatar) }}" alt="">
+            <div>
+                <h6 class="fw-bold mb-1">{{ comment.user.username }}</h6>
+                <div class="d-flex align-items-center mb-3">
+                    <p class="mb-0">
+                        Posté le : {{ comment.created_at | date('d-m-Y') }}
+                        à {{ comment.created_at | date('H:i') }}
+                    </p>
+                </div>
+                <p class="mb-0 comment_content">
+                    {{ comment.content }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-0"/>
+{% endfor %}

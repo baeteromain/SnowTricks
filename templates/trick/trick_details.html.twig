@@ -89,7 +89,7 @@
             {% else %}
                 <div>
                     <span>
-                        <strong>Veuillez vous connecter pour laisser un commentaire</strong>
+                        <strong>Please sign in for leave a comment</strong>
                     </span>
                 </div>
             {% endif %}
@@ -99,37 +99,34 @@
         <div class="container my-5 py-5">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-12 col-lg-10">
-                    <div class="card text-dark">
-                        {% for comment in comments %}
-                            <div class="card-body p-4">
-                                <div class="d-flex flex-start">
-                                    <img class="avatar m-2"
-                                         src="{{ asset('uploads/avatar/' ~ comment.user.avatar) }}" alt="">
-                                    <div>
-                                        <h6 class="fw-bold mb-1">{{ comment.user.username }}</h6>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0">
-                                                Posté le : {{ comment.created_at | date('d-m-Y') }}
-                                                à {{ comment.created_at | date('H:i') }}
-                                            </p>
-                                        </div>
-                                        <p class="mb-0 comment_content">
-                                            {{ comment.content }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr class="my-0"/>
-                        {% endfor %}
+                    <div class="card text-dark" id="comments">
+                       {% include 'trick/_comment.html.twig' %}
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-4">
-                <button>Load More</button>
-            </div>
+            {% if pages > 1 %}
+            <nav id="nav_comments">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" id="prev" href="" data-page='0' data-total={{ pages}} data-slug={{ trick.slug }}>Previous</a>
+                    </li>
+
+                    {% for page in 1..pages %}
+                    <li class="page-item"><a class="page-link" id="pagination" href="" data-page={{ page }} data-total={{ pages}} data-slug={{ trick.slug }}>{{ page }}</a></li>
+                    {% endfor %}
+                    <li class="page-item">
+                        <a class="page-link" id="next" href="" data-page='2' data-total={{ pages}} data-slug={{ trick.slug }}>Next</a>
+                    </li>
+                </ul>
+            </nav>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('paginate_comments') }}
+{% endblock %}
+
 
 

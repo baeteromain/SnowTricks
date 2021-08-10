@@ -77,6 +77,7 @@ class CommentRepository extends ServiceEntityRepository
             ->where('c.trick = :trick_id')
             ->setParameter('trick_id', $trick_id);
         return $query->getQuery()->getSingleScalarResult();
+
     }
 
 }

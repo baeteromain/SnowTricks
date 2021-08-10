@@ -34,7 +34,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setAvatar('Multiavatar-1');
+            $user->setAvatar('Multiavatar-1.png');
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
