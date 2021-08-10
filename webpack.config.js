@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('load', './assets/modules/LoadMoreTrick.js')
     .addEntry('trick_add', './assets/modules/TrickAdd.js')
+    .addEntry('paginate_comments', './assets/modules/CommentsPagination.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
