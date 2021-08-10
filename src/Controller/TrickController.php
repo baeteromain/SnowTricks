@@ -76,8 +76,10 @@ class TrickController extends AbstractController
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
 
-        $limit = 5;
+
+        $limit = 2;
         $pageNb = 1;
+        $nbPages = ceil($commentRepository->getTotalComments($trick->getId()) / $limit);
 
         $comments = $commentRepository->getPaginatedComment($pageNb, $limit, $trick->getId());
 
@@ -88,7 +90,7 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $comment->setUser($this->getUser());
             $comment->setTrick($trick);
 
@@ -104,8 +106,28 @@ class TrickController extends AbstractController
             'trick' => $trick,
             'comments' => $comments,
             'form' => $form->createView(),
+            'pages' => $nbPages,
         ]);
     }
+
+    /**
+     * @Route("/trick/{slug}/{pageNb}", name="trick_ajax_comments")
+     */
+    public function _paginationComments(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $manager, $slug, $pageNb): Response
+    {
+        $limit = 2;
+        $trick = $trickRepository->findOneBy(['slug' => $slug]);
+        $comments = $commentRepository->getPaginatedComment($pageNb, $limit, $trick->getId());
+        if (!$request->isXmlHttpRequest()) {
+            return $this->redirectToRoute('trick_details', ['slug' => $trick->getSlug()]);
+        }
+
+        return new JsonResponse([
+            'content' => $this->renderView('trick/_comment.html.twig', ["comments" => $comments]),
+        ]);
+
+    }
+
 
     /**
      * @Route("/trick/edit/{id}", name="trick_edit")
@@ -119,7 +141,7 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $trick->setUpdatedAt(new \DateTime());
 
@@ -158,21 +180,22 @@ class TrickController extends AbstractController
     /**
      * @Route("/delete/image/{id}", name="trick_delete_image", methods={"DELETE"})
      */
-    public function deleteImage(Image $image, Request $request, EntityManagerInterface $manager){
+    public function deleteImage(Image $image, Request $request, EntityManagerInterface $manager)
+    {
         $data = json_decode($request->getContent(), true);
 
-        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+        if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
 
             $nom = $image->getName();
 
-            unlink($this->getParameter('trick_image_directory').'/'.$nom);
+            unlink($this->getParameter('trick_image_directory') . '/' . $nom);
 
 
             $manager->remove($image);
             $manager->flush();
 
             return new JsonResponse(['success' => 1]);
-        }else{
+        } else {
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
     }
@@ -182,10 +205,10 @@ class TrickController extends AbstractController
      */
     public function delete(Request $request, Trick $trick, EntityManagerInterface $manager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->request->get('_token'))) {
             $filesystem = new Filesystem();
-            foreach ($trick->getImages() as $image){
-                $filesystem->remove($this->getParameter('trick_image_directory'). '/'. $image->getName());
+            foreach ($trick->getImages() as $image) {
+                $filesystem->remove($this->getParameter('trick_image_directory') . '/' . $image->getName());
             }
             $manager->remove($trick);
             $manager->flush();
