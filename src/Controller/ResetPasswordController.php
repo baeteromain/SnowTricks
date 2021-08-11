@@ -84,6 +84,7 @@ class ResetPasswordController extends AbstractController
     public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null, $username = null): Response
     {
         if ($username) {
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
             $user = $this->getUser();
             $form = $this->createForm(ChangePasswordFormType::class);
             $form->handleRequest($request);
