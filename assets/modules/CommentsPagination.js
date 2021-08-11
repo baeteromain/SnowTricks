@@ -18,7 +18,7 @@ window.onload = () => {
                 next.dataset.page = parseInt(nbPage) + 1
             }
 
-            loadURL('/trick/' + slug + '/' + nbPage)
+            loadURL('/trick/' + slug + '/comments/' + nbPage)
         })
     })
 }
