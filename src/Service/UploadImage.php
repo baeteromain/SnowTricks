@@ -28,5 +28,14 @@ class UploadImage
 
         return $fichier;
     }
+    public function saveAvatar($file)
+    {
+        // Créer un nom unique pour le fichier
+        $fichier = md5(uniqid()) . '.' . $file->guessExtension();
+        // Déplace le fichier
+        $file->move($this->params->get('avatar_directory'), $fichier);
+
+        return $fichier;
+    }
 
 }
