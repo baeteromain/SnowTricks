@@ -36,6 +36,9 @@
                     </li>
                     {% if app.user %}
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
                         </li>
                     {% else %}
@@ -61,7 +64,8 @@
         <a class="nav-link" href="{{ path('app_home') }}"><i class="bi bi-house" style="font-size: 2rem; color: white;"></i></a>
         <a class="nav-link" href="{{ path('trick_add') }}"><i class="bi bi-bookmark" style="font-size: 2rem; color: white;"></i></a>
         {% if app.user %}
-        <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-door-open" style="font-size: 2rem; color: white;"></i></a>
+        <a class="nav-link" href="{{ path('app_profil') }}"><i class="bi bi-file-person" style="font-size: 2rem; color: white;"></i></a>
+            <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-door-open" style="font-size: 2rem; color: white;"></i></a>
         {% else %}
             <a class="nav-link" href="{{ path('app_login') }}"><i class="bi bi-person" style="font-size: 2rem; color: white;"></i></a>
             <a class="nav-link" href="{{ path('app_register') }}"><i class="bi bi-person-plus" style="font-size: 2rem; color: white;"></i></a>
