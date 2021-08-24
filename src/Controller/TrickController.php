@@ -201,7 +201,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="trick_delete", methods={"DELETE", "POST"})
+     * @Route("/trick/delete/{id}", name="trick_delete", methods={"DELETE", "POST"})
      */
     public function delete(Request $request, Trick $trick, EntityManagerInterface $manager): Response
     {
