@@ -111,9 +111,9 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}/{pageNb}", name="trick_ajax_comments")
+     * @Route("/trick/{slug}/comments/{pageNb}", name="trick_ajax_comments")
      */
-    public function _paginationComments(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $manager, $slug, $pageNb): Response
+    public function _paginationComments(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $manager, $slug, $pageNb)
     {
         $limit = 2;
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
@@ -201,7 +201,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="trick_delete", methods={"DELETE", "POST"})
+     * @Route("/trick/delete/{id}", name="trick_delete", methods={"DELETE", "POST"})
      */
     public function delete(Request $request, Trick $trick, EntityManagerInterface $manager): Response
     {

@@ -65,11 +65,20 @@ hr.solid {
   .badge{
     font-size: 0.70rem !important;
   }
+  .hideP {
+    display: none;
+  }
+  #show_media{
+    display: block;
+  }
 }
 
 @media screen and (min-width: 576px) {
   .navbar-mobile {
     display: none;
+  }
+  #show_media{
+    visibility: hidden;
   }
 }
 

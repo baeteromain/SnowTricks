@@ -13,8 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"email"}, message="Un compte existre déjà avec cette adresse")
- * @UniqueEntity(fields={"username"}, message="Un compte existre déjà avec cet username")
+ * @UniqueEntity(fields={"email"}, message="Account already exists with that email address")
+ * @UniqueEntity(fields={"username"}, message="account already exists with that email username")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
