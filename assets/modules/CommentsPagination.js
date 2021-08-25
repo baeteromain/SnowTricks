@@ -2,6 +2,8 @@ let navbar_comment, comments, nbPage, prev, next, total
 
 window.onload = () => {
 
+
+
     navbar_comment = document.querySelector('#nav_comments');
     $links = navbar_comment.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
@@ -21,6 +23,15 @@ window.onload = () => {
             loadURL('/trick/' + slug + '/comments/' + nbPage)
         })
     })
+
+    // SeeMedia button management
+
+    let  buttonShow = document.querySelector('#show_media');
+    buttonShow.addEventListener('click', () => {
+        let media = document.querySelector('#trick_media');
+        media.classList.toggle('hideP');
+    })
+
 }
 
 async function loadURL(url) {
@@ -47,4 +58,6 @@ async function loadURL(url) {
     } else {
         console.error(response)
     }
+
+
 }
