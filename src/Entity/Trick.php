@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(
  *  fields={"title"},
- *  message="Un trick possède déjà ce nom, merci de le modifier"
+ *  message="An Trick already exists with that title"
  * )
  */
 class Trick

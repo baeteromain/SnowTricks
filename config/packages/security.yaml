@@ -20,6 +20,7 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\UsersAuthenticator
+            user_checker: App\Security\UserChecker
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -35,4 +36,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/profil, roles: ROLE_USER }
+         - { path: ^/trick/add, roles: ROLE_USER }
+         - { path: ^/trick/edit/*, roles: ROLE_USER }
+         - { path: ^/trick/delete/*, roles: ROLE_USER }
+#

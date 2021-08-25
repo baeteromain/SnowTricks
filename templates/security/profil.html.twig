@@ -25,7 +25,7 @@
                 </div>
                 <div class="text-center pt-3">
                     <a class="btn btn-outline-danger" href="{{ path('app_edit_profil') }}">Edit</a>
-                    <a class="btn btn-outline-danger" href="{{ path('app_reset_password_user') }}/{{ user.username }}">Reset</a>
+                    <a class="btn btn-outline-danger" href="{{ path('app_reset_password_user', {'username': user.username, 'id' : user.id}) }}">Reset</a>
                 </div>
             </div>
         </div>

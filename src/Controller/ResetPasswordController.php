@@ -79,29 +79,35 @@ class ResetPasswordController extends AbstractController
      * Validates and process the reset URL that the user clicked in their email.
      *
      * @Route("/reset/{token}", name="app_reset_password")
-     * @Route("/reset/password/{username}", name="app_reset_password_user")
+     * @Route("/reset_profil/password/{username}/{id}", name="app_reset_password_user")
      */
-    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null, $username = null): Response
+    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null, $username = null, $id = null): Response
     {
-        if ($username) {
+        if ($username != null) {
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
             $user = $this->getUser();
-            $form = $this->createForm(ChangePasswordFormType::class);
-            $form->handleRequest($request);
+            if ($id == $user->getId()) {
+                $form = $this->createForm(ChangePasswordFormType::class);
+                $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
+                if ($form->isSubmitted() && $form->isValid()) {
 
-                // Encode the plain password, and set it.
-                $encodedPassword = $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                );
+                    // Encode the plain password, and set it.
+                    $encodedPassword = $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    );
 
-                $user->setPassword($encodedPassword);
-                $this->getDoctrine()->getManager()->flush();
+                    $user->setPassword($encodedPassword);
+                    $this->getDoctrine()->getManager()->flush();
 
 
-                return $this->redirectToRoute('app_home');
+                    return $this->redirectToRoute('app_home');
+                }
+            } else {
+                throw $this->createNotFoundException('ID of user is not correct ');
             }
+
         } else {
 
             if ($token) {
@@ -152,9 +158,9 @@ class ResetPasswordController extends AbstractController
             }
 
         }
-            return $this->render('reset_password/reset.html.twig', [
-                'resetForm' => $form->createView(),
-            ]);
+        return $this->render('reset_password/reset.html.twig', [
+            'resetForm' => $form->createView(),
+        ]);
     }
 
     private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse
