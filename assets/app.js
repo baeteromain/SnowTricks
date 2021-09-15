@@ -6,19 +6,19 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.scss';
+import "./styles/app.scss";
 
 // You can specify which plugins you need
 import { Tooltip, Toast, Popover } from 'bootstrap';
 
 // start the Stimulus application
-import './bootstrap';
+import "./bootstrap";
 
 //boostrap icons
-require('bootstrap-icons/font/bootstrap-icons.css');
+require("bootstrap-icons/font/bootstrap-icons.css");
 
-import LoadMoreTrick from './modules/LoadMoreTrick';
+import LoadMoreTrick from "./modules/LoadMoreTrick";
 
-new LoadMoreTrick(document.querySelector('#tricks'));
+new LoadMoreTrick(document.querySelector("#tricks"));
 
 
