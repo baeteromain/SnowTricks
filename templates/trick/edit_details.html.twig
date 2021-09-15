@@ -23,10 +23,6 @@
                             <div class="col-sm-12 col-md-6 text-center">
                                 <img src="{{ asset('/uploads/trick/' ~ image.name) }}" alt="Image"
                                      class="img-card-update pb-2">
-{#                                <a class="link-danger" href="{{ path('trick_delete_image', {id: image.id}) }}"#}
-{#                                   data-delete#}
-{#                                   data-token="{{ csrf_token('delete' ~ image.id) }}"><i class="bi bi-trash-fill"#}
-{#                                                                                         style="font-size: 2rem"></i></a>#}
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_image_modal">
                                     <i class="bi bi-trash-fill"
                                        style="font-size: 2rem"></i>
