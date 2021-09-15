@@ -57,6 +57,9 @@
 {% for message in app.flashes('success') %}
     <div class="alert alert-success" role="alert">{{ message }}</div>
 {% endfor %}
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger" role="alert">{{ message }}</div>
+{% endfor %}
 {% block body %}{% endblock %}
 
 <nav class="navbar fixed-bottom navbar-dark bg-dark navbar-mobile">

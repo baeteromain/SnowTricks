@@ -135,9 +135,12 @@ class TrickController extends AbstractController
     public function edit(Request $request, TrickRepository $trickRepository, EntityManagerInterface $manager, $id, UploadImage $uploadImage, Slug $slug): Response
     {
         $trick = $trickRepository->findOneBy(['id' => $id]);
+        $edit = false;
+        if($this->getUser() !== $trick->getUser()){
+            $edit = 'true';
+        }
 
-
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(TrickType::class, $trick, [ 'is_edit' => $edit]);
 
         $form->handleRequest($request);
 
@@ -205,6 +208,10 @@ class TrickController extends AbstractController
      */
     public function delete(Request $request, Trick $trick, EntityManagerInterface $manager): Response
     {
+        if($this->getUser() !== $trick->getUser()){
+            $this->addFlash('error', "Trick is not yours, you can't delete this trick");
+            return $this->redirectToRoute('app_home');
+        }
         if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->request->get('_token'))) {
             $filesystem = new Filesystem();
             foreach ($trick->getImages() as $image) {
@@ -212,8 +219,8 @@ class TrickController extends AbstractController
             }
             $manager->remove($trick);
             $manager->flush();
+            $this->addFlash('success', 'Trick has been deleted');
         }
-        $this->addFlash('success', 'Trick has been deleted');
 
         return $this->redirectToRoute('app_home');
     }
