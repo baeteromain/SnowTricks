@@ -1,5 +1,6 @@
 # PHP - P6 Openclassrooms - Développez de A à Z le site communautaire SnowTricks
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c9f536d8471d4dffba18f0715226d090)](https://app.codacy.com/gh/baeteromain/SnowTricks?utm_source=github.com&utm_medium=referral&utm_content=baeteromain/SnowTricks&utm_campaign=Badge_Grade_Settings)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e8a88cbb47e4469da0f42b4a44f07394)](https://www.codacy.com/gh/baeteromain/SnowTricks/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=baeteromain/SnowTricks&amp;utm_campaign=Badge_Grade)
 
 ## Prérequis / Environnement de développement
