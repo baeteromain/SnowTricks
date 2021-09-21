@@ -62,10 +62,10 @@ MAILER_DSN=smtp://localhost
 
 ## Utilisateurs
 
-Suite à l'implementation des fixtures, le blog contient déja des articles ainsi que des utilsateurs aléatoir excepté le compte administrateur. Vous trouverez ci-dessous les identifiants de ce compte :
+Suite à l'implementation des fixtures, le blog contient déja des articles ainsi que des utilsateurs aléatoir excepté le compte administrateur (celui-ci peut modifier et supprimer tous les tricks du blog). Vous trouverez ci-dessous les identifiants de ce compte :
 
 * Nom d'utilisateur : **admin**
-* Mot de passe : **admin**
+* Mot de passe : **adminadmin**
 
 ## Utilisation du blog
 
