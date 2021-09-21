@@ -18,8 +18,11 @@ window.onload = () => {
 
         boutonSupprOldVideo.innerHTML = "Supprimer ce lien vidéo";
         let iframe = document.querySelectorAll('iframe').forEach((ifra) => {
-
-            let embed = vid.firstChild.value.replace("watch?v=", "embed/");
+            if (vid.firstChild.value.includes("dailymotion")) {
+                embed = vid.firstChild.value.replace("/video/", "/embed/video/");
+            } else {
+                embed = vid.firstChild.value.replace("watch?v=", "embed/");
+            }
             if (ifra.src === embed) {
                 vid.appendChild(ifra);
             }
