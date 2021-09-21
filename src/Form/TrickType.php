@@ -21,16 +21,16 @@ class TrickType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'required' => false,
-                'disabled' => $options['is_edit'],
+                'disabled' => $options['is_disable'],
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'disabled' => $options['is_edit'],
+                'disabled' => $options['is_disable'],
             ])
             ->add('description', TextareaType::class, [
                 'required' => false,
-                'disabled' => $options['is_edit'],
+                'disabled' => $options['is_disable'],
             ])
             ->add('images', FileType::class, [
                 'label' => 'Images',
@@ -54,7 +54,7 @@ class TrickType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Trick::class,
-            'is_edit' => false,
+            'is_disable' => false,
         ]);
     }
 }

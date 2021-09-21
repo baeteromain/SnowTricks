@@ -134,13 +134,15 @@ class TrickController extends AbstractController
      */
     public function edit(Request $request, TrickRepository $trickRepository, EntityManagerInterface $manager, $id, UploadImage $uploadImage, Slug $slug): Response
     {
+
         $trick = $trickRepository->findOneBy(['id' => $id]);
-        $edit = false;
-        if($this->getUser() !== $trick->getUser()){
-            $edit = 'true';
+        $disable = false;
+        $role = $this->getUser()->getRoles();
+        if ($this->getUser() !== $trick->getUser() && $role[0] != "ROLE_ADMIN") {
+            $disable = 'true';
         }
 
-        $form = $this->createForm(TrickType::class, $trick, [ 'is_edit' => $edit]);
+        $form = $this->createForm(TrickType::class, $trick, ['is_disable' => $disable]);
 
         $form->handleRequest($request);
 
@@ -208,7 +210,8 @@ class TrickController extends AbstractController
      */
     public function delete(Request $request, Trick $trick, EntityManagerInterface $manager): Response
     {
-        if($this->getUser() !== $trick->getUser()){
+        $role = $this->getUser()->getRoles();
+        if ($this->getUser() !== $trick->getUser() && $role[0] != "ROLE_ADMIN") {
             $this->addFlash('error', "Trick is not yours, you can't delete this trick");
             return $this->redirectToRoute('app_home');
         }
