@@ -7,7 +7,7 @@ window.onload = () => {
     spanVideo = collectionVideos.querySelector("#video_span");
     boutonAjoutVideos = document.createElement("button");
     boutonAjoutVideos.className = "ajout-video btn btn-secondary";
-    boutonAjoutVideos.innerText = "Ajouter un lien vidéo";
+    boutonAjoutVideos.innerText = "Add video link";
 
     trickvideo = document.querySelector('#trick_videos');
 
