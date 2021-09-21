@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\File;
 
 class TrickType extends AbstractType
 {
@@ -33,14 +35,26 @@ class TrickType extends AbstractType
                 'disabled' => $options['is_disable'],
             ])
             ->add('images', FileType::class, [
-                'label' => 'Images',
+                'label' => 'Pictures',
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new All([
+                        new File([
+                            'mimeTypes' => [
+                                'image/png',
+                                'image/jpg',
+                                'image/jpeg',
+                            ],
+                            'mimeTypesMessage' => 'File need to be jpeg or png type',
+                        ]),
+                    ])
+                ]
             ])
             ->add('videos', CollectionType::class, [
                 'entry_type' => VideoType::class,
-                'label' => 'Lien Vidéo',
+                'label' => 'Video links',
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
