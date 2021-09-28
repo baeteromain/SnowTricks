@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Page not found {% endblock %}
+
+{% block body %}
+    <div class="container text-center  pt-3">
+        <h1 style="font-size: 120px" class="display-1 error404 form_font">{{ status_code }}</h1>
+        <p class="form_font">{{ status_text}}</p>
+        <p class="text-danger form_font">Woops. Looks like this page doesn't exist</p>
+    </div>
+{% endblock %}
