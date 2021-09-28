@@ -6,13 +6,13 @@
 
 {% block body %}
     <div class="container">
-        <h1>New trick</h1>
+        <h1 class="form_title display-2">New trick</h1>
 
         {{ form_start(form) }}
         {{ form_row(form.title) }}
         {{ form_row(form.category) }}
         {{ form_row(form.description) }}
-        <div class="row">
+        <div class="row adding_file">
             <div class="col-lg col-xl" id="image">
                 {{ form_row(form.images) }}
                 <span class="text-center"></span>
