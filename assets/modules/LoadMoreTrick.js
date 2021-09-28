@@ -15,6 +15,7 @@ export default class LoadMoreTrick {
         let click = 0;
         this.loadMore.querySelectorAll("button").forEach((b) => {
             b.addEventListener("click", () => {
+                document.getElementById('spinner').style.display = 'block';
                 click++;
                 let offset = nbTrick * click;
                 this.loadUrl("/ajax/" + offset);
@@ -30,6 +31,9 @@ export default class LoadMoreTrick {
         })
         if (response.status >= 200 && response.status < 300) {
             const data = await response.json();
+            if (response) {
+                this.hideSpinner();
+            }
             if (data.content === false) {
                 document.getElementById("spinner").style.display = "none";
                 document.getElementById("load").style.display = "none";
@@ -39,5 +43,10 @@ export default class LoadMoreTrick {
         } else {
             console.log(response);
         }
+    }
+
+    hideSpinner() {
+        document.getElementById('spinner')
+            .style.display = 'none';
     }
 }
