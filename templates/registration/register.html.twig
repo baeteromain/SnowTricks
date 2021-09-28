@@ -7,11 +7,11 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1 class="text-center my-5">Registration</h1>
+    <h1 class="text-center my-5 form_title display-2">Registration</h1>
 
     <div class="container">
-        <div class="border border-dark p-4 w-50 m-auto">
-            <div class="row">
+        <div class="border border-dark p-4 m-auto d-table bg-dark text-white form_font ">
+            <div class="row display-5">
                 {{ form_start(registrationForm) }}
                 <div class="text-center">
                     {{ form_row(registrationForm.username) }}

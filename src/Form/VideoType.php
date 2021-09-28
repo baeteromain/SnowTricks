@@ -16,7 +16,7 @@ class VideoType extends AbstractType
             ->add('embed', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => "Url d'une vidéo"
+                    'placeholder' => "Url video"
                 ]
             ])
         ;

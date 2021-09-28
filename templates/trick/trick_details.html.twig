@@ -5,7 +5,7 @@
 
 {% block body %}
     <div class="container-fluid p-0">
-        <div class="mb-4 main_image_trick">
+        <div class="mb-4 main_image_trick position-relative">
             {% set number_images = trick.images|length %}
             {% if trick.images is empty %}
                 <img
@@ -13,12 +13,14 @@
                         class="w-100 h-50"
                         alt=""
                 />
+                <span class="trick_title form_title display-2 text-white">{{ trick.title }}</span>
             {% else %}
                 <img
                         src="{{ asset('/uploads/trick/' ~ trick.images[random(0,number_images-1)].name  ) }}"
                         class="img-fluid w-100 h-100 img_main"
                         alt=""
                 />
+                <span class="trick_title form_title display-2 text-white">{{ trick.title }}</span>
             {% endif %}
         </div>
     </div>
@@ -49,17 +51,17 @@
                             </div>
                         </div>
                     {% endif %}
-                   {% if 'youtube' in video.embed %}
-                    {% set id_youtube = video.embed|split('?v=') %}
-                    {% set embed = id_youtube[1]|split('&') %}
-                    <div class="col-12 col-sm-4 col-md-3 col-xl-2 pb-3">
-                        <div class="card">
-                            <iframe width="100%" height="200"
-                                    src="https://www.youtube.com/embed/{{ embed[0] }}">
-                            </iframe>
+                    {% if 'youtube' in video.embed %}
+                        {% set id_youtube = video.embed|split('?v=') %}
+                        {% set embed = id_youtube[1]|split('&') %}
+                        <div class="col-12 col-sm-4 col-md-3 col-xl-2 pb-3">
+                            <div class="card">
+                                <iframe width="100%" height="200"
+                                        src="https://www.youtube.com/embed/{{ embed[0] }}">
+                                </iframe>
+                            </div>
                         </div>
-                    </div>
-                   {% endif %}
+                    {% endif %}
                 {% endfor %}
             </div>
         </section>
@@ -69,24 +71,25 @@
                     {{ trick.description | raw }}
                 </div>
             </div>
-<div class="row d-flex ">
-
-            <dl class="row pb-3">
-                <dt class="col-sm-2">Category</dt>
-                <dd class="col-sm-10 text-center">{{ trick.category.name }}</dd>
-                <hr/>
-                <dt class="col-sm-2">Publish</dt>
-                <dd class="col-sm-10">
-                    <p class="text-center">{{ trick.createdAt | date('d/m/y') }} at {{ trick.createdAt | date('H:i') }}</p>
-                    <p class="text-center">by {{ trick.user.username }}</p>
-                </dd>
-                <hr/>
-                {% if trick.updatedAt %}
-                    <dt class="col-sm-2">Update</dt>
-                    <dd class="col-sm-10 text-center">{{ trick.updatedAt | date('d/m/y') }} at {{ trick.updatedAt | date('H:i') }}</dd>
-                {% endif %}
-            </dl>
-</div>
+            <div class="row d-flex bg-white ">
+                <dl class="row pb-3">
+                    <dt class="col-sm-2 form_font">Category</dt>
+                    <dd class="col-sm-10 text-center">{{ trick.category.name }}</dd>
+                    <hr/>
+                    <dt class="col-sm-2 form_font">Publish</dt>
+                    <dd class="col-sm-10">
+                        <p class="text-center">{{ trick.createdAt | date('d/m/y') }}
+                            at {{ trick.createdAt | date('H:i') }}</p>
+                        <p class="text-center">by {{ trick.user.username }}</p>
+                    </dd>
+                    <hr/>
+                    {% if trick.updatedAt %}
+                        <dt class="col-sm-2 form_font">Update</dt>
+                        <dd class="col-sm-10 text-center">{{ trick.updatedAt | date('d/m/y') }}
+                            at {{ trick.updatedAt | date('H:i') }}</dd>
+                    {% endif %}
+                </dl>
+            </div>
 
         </section>
         <hr class="solid">
@@ -116,25 +119,29 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="card text-dark" id="comments">
-                       {% include 'trick/_comment.html.twig' %}
+                        {% include 'trick/_comment.html.twig' %}
                     </div>
                 </div>
             </div>
             {% if pages > 1 %}
-            <nav id="nav_comments">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" id="prev" href="" data-page='0' data-total={{ pages}} data-slug={{ trick.slug }}>Previous</a>
-                    </li>
+                <nav class="mt-3" id="nav_comments">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" id="prev" href="" data-page='0'
+                               data-total={{ pages }} data-slug={{ trick.slug }}>Previous</a>
+                        </li>
 
-                    {% for page in 1..pages %}
-                    <li class="page-item"><a class="page-link" id="pagination" href="" data-page={{ page }} data-total={{ pages}} data-slug={{ trick.slug }}>{{ page }}</a></li>
-                    {% endfor %}
-                    <li class="page-item">
-                        <a class="page-link" id="next" href="" data-page='2' data-total={{ pages}} data-slug={{ trick.slug }}>Next</a>
-                    </li>
-                </ul>
-            </nav>
+                        {% for page in 1..pages %}
+                            <li class="page-item"><a class="page-link" id="pagination" href=""
+                                                     data-page={{ page }} data-total={{ pages }}
+                                                     data-slug={{ trick.slug }}>{{ page }}</a></li>
+                        {% endfor %}
+                        <li class="page-item">
+                            <a class="page-link" id="next" href="" data-page='2'
+                               data-total={{ pages }} data-slug={{ trick.slug }}>Next</a>
+                        </li>
+                    </ul>
+                </nav>
             {% endif %}
         </div>
     </div>

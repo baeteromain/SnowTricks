@@ -1,11 +1,60 @@
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap');
+
+.snowtrick_header{
+  height: 100vh;
+  min-height: 500px;
+  background-image: url('/assets/image/snowtrick_banner_2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body{
+  background-image: url('/assets/image/background1.png');
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+.card-title{
+  font-family: 'Bungee Inline', cursive;
+  color: black;
+}
+.form_font{
+  font-family: 'Cabin Sketch', cursive;
+}
+
+.form_title{
+  font-family: 'Bungee Inline', cursive;
+}
+
+.card-title:hover{
+  color: red;
+}
+
+.text_banner{
+  font-family: 'Bangers', cursive;
+}
+
+.text_second_banner{
+  font-family: 'Cabin Sketch', cursive;
+}
 
 .carousel-item > img {
   height: 95vh;
   object-fit: cover;
 }
 
+
+.arrow-down {
+  position: absolute;
+  right: 20px;
+  bottom: -5px;
+  font-size: 3em;
+}
 #arrow_down , #arrow_up {
   font-size: 3em;
   color: black;
@@ -82,3 +131,26 @@ hr.solid {
   }
 }
 
+.adding_file{
+  display: inline-grid;
+}
+
+#spinner{
+  display: none;
+}
+
+.col-form-label{
+  padding-top: 0;
+}
+.form-label{
+  font-family: 'Cabin Sketch', cursive;
+}
+
+.trick_title{
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  background: linear-gradient(90deg, rgba(14,0,255,1) 0%, rgba(217,217,217,1) 51%, rgba(255,0,0,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
