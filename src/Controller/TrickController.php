@@ -75,7 +75,9 @@ class TrickController extends AbstractController
     public function details(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $manager, $slug): Response
     {
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
-
+        if(!$trick){
+            throw $this->createNotFoundException("This trick doesn't exist");
+        }
 
         $limit = 2;
         $pageNb = 1;
@@ -134,8 +136,10 @@ class TrickController extends AbstractController
      */
     public function edit(Request $request, TrickRepository $trickRepository, EntityManagerInterface $manager, $id, UploadImage $uploadImage, Slug $slug): Response
     {
-
         $trick = $trickRepository->findOneBy(['id' => $id]);
+        if(!$trick){
+            throw $this->createNotFoundException("This trick doesn't exist");
+        }
         $disable = false;
         $role = $this->getUser()->getRoles();
         if ($this->getUser() !== $trick->getUser() && $role[0] != "ROLE_ADMIN") {
