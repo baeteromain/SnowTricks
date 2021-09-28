@@ -5,8 +5,8 @@
 {% block body %}
     <div class="container">
 
-        <h1 class="h3 mb-3 font-weight-normal text-center mt-5 mb-5">Login</h1>
-        <form method="post" class="text-center border border-dark p-4 w-25 m-auto">
+        <h1 class=" mb-3 text-center mt-5 mb-5 form_title display-2 ">Login</h1>
+        <form method="post" class="text-center border border-dark p-4 m-auto d-table bg-dark text-white form_font">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
@@ -17,10 +17,10 @@
                 </div>
             {% endif %}
 
-            <label for="inputEmail" class="my-3">Username</label>
+            <label for="inputEmail" class="my-3 display-5">Username</label>
             <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control"
                    autocomplete="username" required autofocus>
-            <label for="inputPassword" class="my-3">Password</label>
+            <label for="inputPassword" class="my-3 display-5">Password</label>
             <input type="password" name="password" id="inputPassword" class="form-control"
                    autocomplete="current-password" required>
 
@@ -42,8 +42,8 @@
             <button class="btn btn-primary my-3" type="submit">
                 Login
             </button>
-        <p><a href="{{ path('app_register') }}">Register</a></p>
-        <p><a href="{{ path('app_forgot_password_request') }}">Forgot Password</a></p>
+        <p><a class="text-white" href="{{ path('app_register') }}">Register</a></p>
+        <p><a class="text-white" href="{{ path('app_forgot_password_request') }}">Forgot Password</a></p>
         </form>
     </div>
 {% endblock %}

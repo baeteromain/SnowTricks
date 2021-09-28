@@ -1,5 +1,5 @@
 {% for trick in tricks %}
-    <div class="col-xl-3 col-md-4">
+    <div class="col-xl-3 col-md-4 mb-2">
         <a href="{{ path('trick_details', {'slug': trick.slug}) }}" class="text-decoration-none">
             <div class="card h-100" id="card_trick">
                 {% set number_images = trick.images|length %}

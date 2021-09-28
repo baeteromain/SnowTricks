@@ -16,7 +16,7 @@ window.onload = () => {
         boutonSupprOldVideo.type = "button";
         boutonSupprOldVideo.className = "btn btn-danger mt-1";
 
-        boutonSupprOldVideo.innerHTML = "Supprimer ce lien vidéo";
+        boutonSupprOldVideo.innerHTML = "Delete video link";
         let iframe = document.querySelectorAll('iframe').forEach((ifra) => {
             if (vid.firstChild.value.includes("dailymotion")) {
                 embed = vid.firstChild.value.replace("/video/", "/embed/video/");
@@ -89,7 +89,7 @@ function addButtonVideo(collection, nouveauBouton) {
     boutonSuppr.type = "button";
     boutonSuppr.className = "btn btn-danger mb-3";
     boutonSuppr.id = "delete-video-" + index;
-    boutonSuppr.innerHTML = "Supprimer un lien vidéo";
+    boutonSuppr.innerHTML = "Delete video link";
 
     newForm.append(boutonSuppr);
 

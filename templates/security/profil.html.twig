@@ -4,11 +4,11 @@
 {% endblock %}
 
 {% block body %}
-    <h2 class="text-center my-5">Profil of {{ user.username }}</h2>
+    <h2 class="text-center my-5 form_title">Profil of {{ user.username }}</h2>
     <div class="container">
         <div class="border border-dark p-4 w-50 m-auto">
             <div class="row">
-                <img class="rounded-circle" src="{{ asset('uploads/avatar/' ~ user.avatar) }}" alt="">
+                <img class="rounded-circle mb-3" src="{{ asset('uploads/avatar/' ~ user.avatar) }}" alt="">
                 <div class="text-center">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
@@ -24,8 +24,8 @@
                     </ul>
                 </div>
                 <div class="text-center pt-3">
-                    <a class="btn btn-outline-danger" href="{{ path('app_edit_profil') }}">Edit</a>
-                    <a class="btn btn-outline-danger" href="{{ path('app_reset_password_user', {'username': user.username, 'id' : user.id}) }}">Reset</a>
+                    <a class="btn btn-danger text-white" href="{{ path('app_edit_profil') }}">Edit</a>
+                    <a class="btn btn-danger text-white" href="{{ path('app_reset_password_user', {'username': user.username, 'id' : user.id}) }}">Reset</a>
                 </div>
             </div>
         </div>
