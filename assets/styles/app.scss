@@ -4,14 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap');
 
-.snowtrick_header{
-  height: 100vh;
-  min-height: 500px;
-  background-image: url('/assets/image/snowtrick_banner_2.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+//GENERAL
 
 body{
   background-image: url('/assets/image/background1.png');
@@ -19,86 +12,8 @@ body{
   background-repeat: no-repeat;
 }
 
-.card-title{
-  font-family: 'Bungee Inline', cursive;
-  color: black;
-}
-.form_font{
-  font-family: 'Cabin Sketch', cursive;
-}
-
-.form_title{
-  font-family: 'Bungee Inline', cursive;
-}
-
-.card-title:hover{
-  color: red;
-}
-
-.text_banner{
-  font-family: 'Bangers', cursive;
-}
-
-.text_second_banner{
-  font-family: 'Cabin Sketch', cursive;
-}
-
-.carousel-item > img {
-  height: 95vh;
-  object-fit: cover;
-}
-
-
-.arrow-down {
-  position: absolute;
-  right: 20px;
-  bottom: -5px;
-  font-size: 3em;
-}
-#arrow_down , #arrow_up {
-  font-size: 3em;
-  color: black;
-}
-
-.arrow-down-carousel {
-  position: absolute;
-  margin-right: 25px;
-  bottom: 5%;
-  left: 95%;
-}
-
-.img-card {
-  max-width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.main_image_trick {
-  height: 600px;
-}
-
-.img_main {
-  object-fit: fill;
-}
-
-/* Solid border */
 hr.solid {
   border-top: 3px solid black;
-}
-
-.avatar {
-  height: 50px;
-  width: 50px;
-}
-
-.comment_content {
-  word-break: break-word;
-}
-
-.img-card-update {
-  width: 200px;
-  height: 200px;
-  object-fit: fill;
 }
 
 @media screen and (max-width: 576px) {
@@ -131,12 +46,74 @@ hr.solid {
   }
 }
 
-.adding_file{
-  display: inline-grid;
+//BANNER
+
+.snowtrick_header{
+  height: 100vh;
+  min-height: 500px;
+  background-image: url('/assets/image/snowtrick_banner_2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
+.text_banner{
+  font-family: 'Bangers', cursive;
+}
+
+.text_second_banner{
+  font-family: 'Cabin Sketch', cursive;
+}
+
+//HOME
 
 #spinner{
   display: none;
+}
+
+.arrow-down {
+  position: absolute;
+  right: 20px;
+  bottom: -5px;
+  font-size: 3em;
+}
+#arrow_down , #arrow_up {
+  font-size: 3em;
+  color: black;
+}
+
+.arrow-down-carousel {
+  position: absolute;
+  margin-right: 25px;
+  bottom: 5%;
+  left: 95%;
+}
+
+//CARD
+
+.card-title{
+  font-family: 'Bungee Inline', cursive;
+  color: black;
+}
+
+.card-title:hover{
+  color: red;
+}
+
+.img-card {
+  max-width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+//FORM
+
+.form_font{
+  font-family: 'Cabin Sketch', cursive;
+}
+
+.form_title{
+  font-family: 'Bungee Inline', cursive;
 }
 
 .col-form-label{
@@ -146,6 +123,8 @@ hr.solid {
   font-family: 'Cabin Sketch', cursive;
 }
 
+//TRICK
+
 .trick_title{
   position: absolute;
   bottom: 25px;
@@ -153,4 +132,33 @@ hr.solid {
   background: linear-gradient(90deg, rgba(14,0,255,1) 0%, rgba(217,217,217,1) 51%, rgba(255,0,0,1) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.main_image_trick {
+  height: auto;
+}
+
+.img_main {
+  object-fit: fill;
+}
+
+.comment_content {
+  word-break: break-word;
+}
+
+.img-card-update {
+  width: 200px;
+  height: 200px;
+  object-fit: fill;
+}
+
+.adding_file{
+  display: inline-grid;
+}
+
+//PROFIL
+
+.avatar {
+  height: 50px;
+  width: 50px;
 }
