@@ -79,7 +79,7 @@ class TrickController extends AbstractController
             throw $this->createNotFoundException("This trick doesn't exist");
         }
 
-        $limit = 2;
+        $limit = 10;
         $pageNb = 1;
         $nbPages = ceil($commentRepository->getTotalComments($trick->getId()) / $limit);
 
@@ -117,7 +117,7 @@ class TrickController extends AbstractController
      */
     public function _paginationComments(Request $request, TrickRepository $trickRepository, CommentRepository $commentRepository, EntityManagerInterface $manager, $slug, $pageNb)
     {
-        $limit = 2;
+        $limit = 10;
         $trick = $trickRepository->findOneBy(['slug' => $slug]);
         $comments = $commentRepository->getPaginatedComment($pageNb, $limit, $trick->getId());
         if (!$request->isXmlHttpRequest()) {
