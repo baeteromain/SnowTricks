@@ -26,13 +26,13 @@ class UsersFixtures extends Fixture
 
             if ($nbUsers === 1){
                 $user->setEmail('admin@admin.fr');
-                $user->setPassword($this->encoder->encodePassword($user, 'admin'));
+                $user->setPassword($this->encoder->encodePassword($user, 'adminadmin'));
                 $user->setIsVerified(1);
                 $user->setRoles(['ROLE_ADMIN']);
             } else {
             $user->setRoles(['ROLE_USER']);
             $user->setEmail($faker->email);
-            $user->setPassword($this->encoder->encodePassword($user, 'azerty'));
+            $user->setPassword($this->encoder->encodePassword($user, 'azertyazerty'));
             $user->setIsVerified($faker->numberBetween(0,1));
             }
             $user->setUsername($faker->userName);

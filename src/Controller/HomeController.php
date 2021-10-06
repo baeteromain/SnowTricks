@@ -16,7 +16,7 @@ class HomeController extends AbstractController
      */
     public function index(TrickRepository $trickRepository): Response
     {
-        $limit = 5;
+        $limit = 15;
         $pageNb = 1;
         $nbPages = ($trickRepository->getTotalTricks() / $limit);
 
@@ -33,12 +33,11 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/ajax/{nbTricks}", name="app_home_ajax")
+     * @Route("/ajax/{offset}/{limit}", name="app_home_ajax")
      */
-    public function _loadMoreTrick(TrickRepository $trickRepository, Request $request, $nbTricks): Response
+    public function _loadMoreTrick(TrickRepository $trickRepository, Request $request, $offset, $limit): Response
     {
-        $limit = 5;
-        $tricks = $trickRepository->findBy([], ['created_at' => 'desc'], $limit, $nbTricks);
+        $tricks = $trickRepository->findBy([], ['created_at' => 'desc'], $limit, $offset);
         if (!$request->isXmlHttpRequest()) {
             return $this->redirectToRoute("app_home");
         }

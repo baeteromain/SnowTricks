@@ -13,7 +13,7 @@ window.onload = () => {
                 prev = document.querySelector("#prev");
                 prev.dataset.page = parseInt(nbPage) - 1;
             }
-            if (parseInt(nbPage, 10) !== 0 && parseInt(nbPage) < total) {
+            if (parseInt(nbPage, 10) !== 0 && parseInt(nbPage) <= total) {
                 next = document.querySelector("#next");
                 next.dataset.page = parseInt(nbPage) + 1;
             }
@@ -41,14 +41,14 @@ async function loadURL(url) {
     if (response.status >= 200 && response.status < 300) {
         const data = await response.json()
         if (parseInt(nbPage, 10) == 1) {
-            prev.parentNode.classList.add("disabled");
+            document.querySelector("#prev").parentNode.classList.add("disabled");
         } else {
-            prev.parentNode.classList.remove("disabled");
+            document.querySelector("#prev").parentNode.classList.remove("disabled");
         }
         if (parseInt(nbPage, 10) == total) {
-            next.parentNode.classList.add("disabled");
+            document.querySelector("#next").parentNode.classList.add("disabled");
         } else {
-            next.parentNode.classList.remove("disabled");
+            document.querySelector("#next").parentNode.classList.remove("disabled");
         }
 
         comments = document.querySelector("#comments");
