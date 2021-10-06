@@ -7,18 +7,23 @@ export default class LoadMoreTrick {
         this.trick = element.querySelector("#tricks");
         this.trickCard = element.querySelector("#tricks_cards");
         this.card_trick = document.querySelectorAll("#card_trick");
+        this.arrow_up = element.querySelector("#arrow_up");
         this.bindEvents();
     }
 
     bindEvents() {
-        let nbTrick = 5;
+        document.getElementById("arrow_up").style.visibility = "hidden";
+        let nbTrick = this.trickCard.dataset.limit;
         let click = 0;
         this.loadMore.querySelectorAll("button").forEach((b) => {
             b.addEventListener("click", () => {
                 document.getElementById('spinner').style.display = 'block';
                 click++;
                 let offset = nbTrick * click;
-                this.loadUrl("/ajax/" + offset);
+                this.loadUrl("/ajax/" + offset + "/" + nbTrick);
+                if(offset >= nbTrick){
+                    document.getElementById("arrow_up").style.visibility = "visible";
+                }
             })
         })
     }
